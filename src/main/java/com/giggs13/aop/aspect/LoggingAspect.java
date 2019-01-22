@@ -2,10 +2,7 @@ package com.giggs13.aop.aspect;
 
 import com.giggs13.aop.entity.Account;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -58,5 +55,11 @@ public class LoggingAspect {
         System.out.println("\n<--- Executing @AfterThrowing advice on a method " + method);
 
         System.out.println("Error is: " + error + "\n");
+    }
+
+    @After("com.giggs13.aop.aspect.AopExpressions.findAccounts()")
+    private void afterFinallyFindAccountsAdvice(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().toShortString();
+        System.out.println("\n<--- Executing @After advice on a method " + method);
     }
 }
